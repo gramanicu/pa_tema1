@@ -23,7 +23,10 @@ run-p3: bomboane
 
 # Deletes the binary and object files
 clean:
-	rm -f gard bani bomboane README cpp.errors java.errors 322CA_GramaNicolae_Tema1.zip
+	rm -f gard bani bomboane
+
+fullclean:
+	rm -f gard bani bomboane README cpp.errors java.errors 322CA_GramaNicolae_Tema1.zip *.out
 
 # Automatic coding style, in my personal style
 beauty:
@@ -31,6 +34,9 @@ beauty:
 
 readme:
 	cp Readme.md README
+
+check: beauty readme
+	./check.sh
 
 # Creates an archive of the project
 pack: clean readme beauty
