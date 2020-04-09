@@ -1,7 +1,5 @@
-_utils
 .vscode
 Makefile.PA
 README.checker
 Makefile.template
-check.sh
-public_tests
+*.errors

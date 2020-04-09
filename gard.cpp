@@ -3,51 +3,50 @@
 #include <fstream>
 #include <vector>
 
-using namespace std;
+std::fstream in("gard.in");
+std::ofstream out("gard.out");
 
-fstream in("gard.in");
-ofstream out("gard.out");
-
-#define lint long int
+#define lint unsigned long int
 
 struct Fence {
-    lint start, end;
+    int start, end;
+
+    // By convention, a fence is null if it starts at -1
+    bool isNull() { return (start == -1); }
 };
 
-bool isSmaller(Fence f1, Fence f2) {
-    if (f1.start == f2.start) {
-        return f1.end > f2.end;
+// Comparator for std::sort
+bool isSmaller(const Fence first, const Fence other) {
+    if (first.start == other.start) {
+        return first.end > other.end;
     }
-    return f1.start < f2.start;
+    return first.start < other.start;
 }
 
-bool isEqual(Fence f1, Fence f2) {
-    return (f1.start == f2.start) && (f1.end == f2.end);
-}
-
-bool isNull(Fence f1) { return (f1.start == -1); }
-
-void solve(vector<Fence> arr) {
+lint solve(std::vector<Fence> arr) {
+    // Sort the array in O(n log n), in ascending order of the fence start
+    // and descending order of fence end
     sort(arr.begin(), arr.end(), isSmaller);
     lint count = 0;
 
-    Fence* list = (Fence*)malloc(arr.size() * sizeof(Fence));
-    for (lint i = 0; i < arr.size(); ++i) {
-        list[i] = arr[i];
-    }
-
+    // For each fence
     for (lint i = 0; i < arr.size() - 1; ++i) {
-        if (!isNull(list[i])) {
+        if (!arr[i].isNull()) {
             for (lint j = i + 1; j < arr.size(); ++j) {
-                // If this wasn't counted already
-                if (!isNull(list[j])) {
-                    if (list[i].end >= list[j].end) {
+                // If this wasn't counted/removed already
+                if (!arr[j].isNull()) {
+                    if (arr[i].end >= arr[j].end) {
+                        // Update count
                         count++;
                         count %= 1000000007;
-                        list[j].start = -1;
+
+                        // Remove the fence
+                        arr[j].start = -1;
                     }
 
-                    if (list[j].start > list[i].end) {
+                    // After this point, is guaranteed we won't find any fence
+                    // that is contained in "i" fence
+                    if (arr[j].start > arr[i].end) {
                         break;
                     }
                 }
@@ -55,22 +54,24 @@ void solve(vector<Fence> arr) {
         }
     }
 
-    free(list);
-    out << count << "\n";
+    return count;
 }
 
 int main() {
-    vector<Fence> arr;
+    // Read input
+    std::vector<Fence> arr;
     lint n;
     in >> n;
-    for (int i = 0; i < n; ++i) {
+    for (lint i = 0; i < n; ++i) {
         Fence f;
         in >> f.start >> f.end;
         arr.push_back(f);
     }
-
-    solve(arr);
     in.close();
+
+    // Solve problem
+    out << solve(arr) << "\n";
+
     out.close();
     return 0;
 }
