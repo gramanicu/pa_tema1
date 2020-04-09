@@ -5,9 +5,9 @@
 
 # Compiles the programs
 build:
-	@g++ gard.cpp -o gard
-	@g++ bani.cpp -o bani
-	@g++ bomboane.cpp -o bomboane
+	@g++ gard.cpp -o gard  -Wno-unused-parameter -Wall -Wextra -pedantic -g
+	@g++ bani.cpp -o bani -Wno-unused-parameter -Wall -Wextra -pedantic -g
+	@g++ bomboane.cpp -o bomboane -Wno-unused-parameter -Wall -Wextra -pedantic -g
 
 # Executes the first binary
 run-p1: bani
