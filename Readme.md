@@ -46,7 +46,7 @@ There are some small optimisations, the most important being the fact that we st
 if (arr[j].start > arr[i].end) { break; }
 ```
 
-## Bomboane.cpp
+## Bomboane.cpp - Third Problem
 
 This is a problem that I solved using dynamic programming, somewhat similar to the knapsack problem, in the way that it uses a matrix to store the results of the subproblems. In my implementation, to reduce the memory usage, I only store the last and current results.
 
