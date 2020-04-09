@@ -1,5 +1,7 @@
 # PA, First Homework - "Another day in GigeLand"
 
+The first homework for the Algorithm Design Course. The problem statement can be found [here](./docs/problem_statement.pdf).
+
 ## Bani.cpp - First problem
 
 There can be 2 types of instruction. For the first type, I realised that, for every bill, we can choose only 2 other types of bills. These makes the problem solvable just by computing `(typesOfBills) * (2 ^ (numberOfBills - 1))`, or `5 * 2 ^ (n-1)`. For the second type of instruction, the problem solution is a bit different.
